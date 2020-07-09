@@ -2,8 +2,6 @@
 echo "Welcome to employee wage computation program"
 #constants
 wagePerHours=20
-#workingHours=8
-#partTimeHours=4
 workingDaysPerMonth=20
 absent=0
 fullTime=1
@@ -35,20 +33,15 @@ echo $empHrs
 while [[ $totalWorkingHrs -lt 100 && $totalWorkingDays -lt 20 ]]
 do
 	isPresent=$(( RANDOM % 3  ))
-	workingHrs=$( getWorkHours $isPresent )
-	dailyWage[totalWorkingDays]=$(( $wagePerHours * $workingHrs ))
-	totalWage=$(( $totalWage + ($wagePerHours * $workingHrs)  ))
-	totalWage[$totalWorkingDays]=$totalWage
-	totalWorkingHrs=$(( $totalWorkingHrs + $workingHrs ))
 	((totalWorkingDays++))
-
+	workingHrs=$( getWorkHours $isPresent )
+	dailyWage["Day "$totalWorkingDays]=$(( $wagePerHours * $workingHrs ))
+	totalWage=$(( $totalWage + ($wagePerHours * $workingHrs)  ))
+	totalWage["Day "$totalWorkingDays]=$totalWage
+	totalWorkingHrs=$(( $totalWorkingHrs + $workingHrs ))
 done
-for (( i=0; i<$totalWorkingDays; i++ ))
+echo "Day NO.   DailyWage     TotalWage"
+for (( i=1;i<=$totalWorkingDays; i++ ))
 do
-	echo ${dailyWage[$i]}" "${totalWage[$i]}
+	echo " Day "$i"        "${dailyWage["Day "$i]}"          "${totalWage["Day "$i]}
 done
-
-echo $totalWage
-echo ${dailyWage[@]}
-
-echo ${totalWage[@]}
